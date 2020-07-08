@@ -1,5 +1,6 @@
 package com.gabrieldb.mongodb.resources;
 
+import com.gabrieldb.mongodb.domain.Post;
 import com.gabrieldb.mongodb.domain.User;
 import com.gabrieldb.mongodb.dtos.UserDTO;
 import com.gabrieldb.mongodb.services.UserService;
@@ -52,5 +53,11 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
